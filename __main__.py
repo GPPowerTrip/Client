@@ -3,15 +3,9 @@
 from classes.options import Options
 import sys
 
-# Option variables
-op = sys.argv[1]
-param = sys.argv[2:]
 ops = ['help', 'list', 'attack', 'install', 'status', 'clear']
-
-# Sanitation of parameters
-if len(sys.argv) < 2 or op not in ops:
+if len(sys.argv) < 2 or sys.argv[1] not in ops:
     print('>>Invalid command.\n>>Use help for a list of commands.')
-    sys.exit()
+else:
+    getattr(Options, sys.argv[1])(sys.argv[2:])
 
-# Execution of operations
-result = getattr(Options, op)(param)
