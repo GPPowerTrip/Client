@@ -1,11 +1,9 @@
 # CLI application for Excalibot
 
 ## Help
-Provide a description of usage of the botnet
-
-Help usage: excalibot help COMMAND
-
-General usage: excalibot COMMAND HOST PORT [PARAMETERS]
+- Provide a description of usage of the botnet
+- Help usage: excalibot help COMMAND
+- General usage: excalibot COMMAND HOST PORT [PARAMETERS]
 
 ### COMMAND
 help    Print usage
