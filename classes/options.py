@@ -20,31 +20,31 @@ class Options:
             print('>List available bots')
             print('Usage: excalibot list HOST PORT KEY')
             print('Keys:')
-            print('  id\t\t\tSort list by botid')
-            print('  ipAddress\t\tSort list by IP address')
-            print('  lastSeen\t\tSort list by seconds since last report')
-            print('  os\t\t\tSort list by Operative System')
+            print('  id\t\tSort list by botid')
+            print('  ipAddress\tSort list by IP address')
+            print('  lastSeen\tSort list by seconds since last report')
+            print('  os\t\tSort list by Operative System')
             print('  countryCode\tSort list by Country')
-            print('  zip\t\t\tSort list by zip code')
+            print('  zip\t\tSort list by zip code')
         elif args[0] == 'attack':
             print('>Schedule new attacks')
             print('Usage: excalibot attack HOST PORT ATTACK [KEY:VALUE]')
             print('Attack: Installed plugins')
-            print('KEY:VALUE: parameters to the attack, order does not matter, use a key:value organization')
+            print('  KEY:VALUE: parameters to the attack, order does not matter, use a key:value organization')
             # TODO get plugins from server
         elif args[0] == 'install':
             print('>Install new plugin')
             print('Usage: excalibot install HOST PORT URL')
-            print('Url: url to the plugin resource')
+            print('  Url: url to the plugin resource')
         elif args[0] == 'status':
             print('>Check task completion status')
             print('Usage: excalibot status HOST PORT ID (-b)')
             print('Id: id of the task to get status')
-            print('(-b): use the -b to block until task is completed')
+            print('  (-b): use the -b to block until task is completed')
         elif args[0] == 'clear':
             print('>Clear task from control center')
             print('Usage: excalibot clear HOST PORT ID')
-            print('ID: id of the task to delete')
+            print('  ID: id of the task to delete')
 
     @staticmethod
     def list(args):
