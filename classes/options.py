@@ -8,8 +8,8 @@ class Options:
         # Describe usage of the cli
         if len(args) == 0:
             print('The Holy Botnet')
-            print('Usage: excalibot COMMAND HOST PORT [PARAMETERS]')
-            print('Commands:')
+            print('Usage: excalibot COMMAND HOST PORT PARAMETERS')
+            print('COMMAND:')
             print('  help\t\tPrint usage')
             print('  list\t\tList available bots')
             print('  attack\tSchedule new attacks')
@@ -17,50 +17,67 @@ class Options:
             print('  status\tCheck task completion status')
             print('  clear\t\tClear task from control center')
         elif args[0] == 'list':
-            print('>List available bots')
-            print('Usage: excalibot list HOST PORT KEY')
-            print('Keys:')
+            print('List available bots')
+            print('Usage: excalibot list HOST PORT key:KEY since:SINCE')
+            print('KEY: (optional)')
             print('  id\t\tSort list by botid')
             print('  ipAddress\tSort list by IP address')
             print('  lastSeen\tSort list by seconds since last report')
             print('  os\t\tSort list by Operative System')
             print('  countryCode\tSort list by Country')
             print('  zip\t\tSort list by zip code')
+            print()
+            print('SINCE: (optional)')
+            print('  Show only bots alive in the last SINCE seconds')
         elif args[0] == 'attack':
-            print('>Schedule new attacks')
-            print('Usage: excalibot attack HOST PORT ATTACK [KEY:VALUE]')
-            print('Attack: Installed plugins')
-            print('  KEY:VALUE: parameters to the attack, order does not matter, use a key:value organization')
+            print('Schedule new attacks')
+            print('Usage: excalibot attack HOST PORT ATTACK KEY:VALUE')
+            print('ATTACK:')
+            print('  Installed plugin name')
+            print()
+            print('KEY:VALUE: (optional)')
+            print('  List of parameters to the attack, in a key:value format')
             # TODO get plugins from server
         elif args[0] == 'install':
-            print('>Install new plugin')
+            print('Install new plugin')
             print('Usage: excalibot install HOST PORT URL')
-            print('  Url: url to the plugin resource')
+            print('URL:')
+            print('  url to the plugin resource')
         elif args[0] == 'status':
-            print('>Check task completion status')
-            print('Usage: excalibot status HOST PORT ID (-b)')
-            print('Id: id of the task to get status')
-            print('  (-b): use the -b to block until task is completed')
+            print('Check task completion status')
+            print('Usage: excalibot status HOST PORT ID -b')
+            print('ID:')
+            print('  id of the task to get status')
+            print()
+            print('-b: (optional)')
+            print('  Block until task is completed')
         elif args[0] == 'clear':
-            print('>Clear task from control center')
+            print('Clear task from control center')
             print('Usage: excalibot clear HOST PORT ID')
-            print('  ID: id of the task to delete')
+            print('ID:')
+            print('  Id of the task to deleted')
 
     @staticmethod
     def list(args):
-        # List available bots {list $host $port $key}
+        # List available bots {list $host $port key:$key since:$time}
         if len(args) < 2:
             print('Invalid parameters')
             return
         try:
-            bot_list = Operations.list(args[0], args[1])
+            param = {}
+            if len(args) > 2:
+                param = Operations.hash_args(args[2:])
+            if 'since' in param.keys():
+                bot_list = Operations.list_alive(args[0], args[1], param['since'])
+            else:
+                bot_list = Operations.list(args[0], args[1])
             if bot_list == -1:
                 print('Error Connecting')
                 return
-            if len(args) < 3 or args[2] not in ['id', 'ipAddress', 'lastSeen', 'os', 'countryCode', 'zip']:
+            if 'key' not in param.keys() or param['key'] not in ['id', 'ipAddress', 'lastSeen', 'os', 'countryCode', 'zip']:
                 bot_list = Operations.sort(bot_list, 'lastSeen')
             else:
-                bot_list = Operations.sort(bot_list, args[2])
+                bot_list = Operations.sort(bot_list, param['key'])
             Operations.print_list(bot_list)
         except:
             print("Error connecting")
@@ -71,7 +88,9 @@ class Options:
         if len(args) < 3:
             print('Invalid parameters')
             return
-        param = Operations.hash_args(args[3:])
+        param = {}
+        if len(args) > 3:
+            param = Operations.hash_args(args[3:])
         try:
             if param == -1:
                 print('Invalid attack parameters')

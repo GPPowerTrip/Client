@@ -9,12 +9,26 @@ class Operations:
     @staticmethod
     def list(host, port):
         bot_list = []
-        current = time.time()
         r = requests.get('http://' + host + ':' + port + '/knight/list')
         if r.status_code != 200 or r.headers['content-type'] != 'application/json':
             print('ERROR: ' + r.text)
             return -1
+        current = time.time()
+        for bot in json.loads(r.text):
+            item = {'id': bot['id'], 'lastSeen': int(current - bot['lastSeen'] / 1000)}
+            for key in bot['properties']:
+                item[key] = bot['properties'][key]
+            bot_list.append(item)
+        return bot_list
 
+    @staticmethod
+    def list_alive(host, port, filter):
+        bot_list = []
+        r = requests.get('http://' + host + ':' + port + '/knight/list/' + filter)
+        if r.status_code != 200 or r.headers['content-type'] != 'application/json':
+            print('ERROR: ' + r.text)
+            return -1
+        current = time.time()
         for bot in json.loads(r.text):
             item = {'id': bot['id'], 'lastSeen': int(current - bot['lastSeen'] / 1000)}
             for key in bot['properties']:
