@@ -7,8 +7,8 @@ class Options:
     def help(args):
         # Describe usage of the cli
         if len(args) == 0:
-            print('The Holy Botnet')
-            print('Usage: excalibot COMMAND HOST PORT PARAMETERS')
+            print('Usage: excalibot help COMMAND')
+            print('General application usage: excalibot COMMAND HOST PORT PARAMETERS')
             print('COMMAND:')
             print('  help\t\tPrint usage')
             print('  list\t\tList available bots')
