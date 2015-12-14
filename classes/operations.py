@@ -22,9 +22,9 @@ class Operations:
         return bot_list
 
     @staticmethod
-    def list_alive(host, port, filter):
+    def list_alive(host, port, since):
         bot_list = []
-        r = requests.get('http://' + host + ':' + port + '/knight/list/' + filter)
+        r = requests.get('http://' + host + ':' + port + '/knight/list/' + since)
         if r.status_code != 200 or r.headers['content-type'] != 'application/json':
             print('ERROR: ' + r.text)
             return -1
@@ -82,8 +82,8 @@ class Operations:
         print(r.text)
 
     @staticmethod
-    def status(host, port, id):
-        r = requests.post('http://' + host + ':' + port + 'control/status', id)
+    def status(host, port, task_id):
+        r = requests.post('http://' + host + ':' + port + 'control/status', task_id)
         if r.status_code != 200:
             print('ERROR: ' + r.text)
             return -1
@@ -96,8 +96,8 @@ class Operations:
         return True
 
     @staticmethod
-    def clear(host, port, id):
-        r = requests.post('http://' + host + ':' + port + 'control/clear', id)
+    def clear(host, port, task_id):
+        r = requests.post('http://' + host + ':' + port + 'control/clear', task_id)
         if r.status_code != 200:
             print('ERROR: ' + r.text)
             return -1
