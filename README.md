@@ -1,77 +1,84 @@
-# CLI application for Excalibot
+help help
+    ('Usage: excalibot help COMMAND')
+    ('General application usage: excalibot COMMAND HOST PORT PARAMETERS')
+    ('COMMAND:')
+    ('  help\t\t this information')
+    ('  bot_list\t\tList available bots')
+    ('  task_submit\tSchedule new attacks')
+    ('  task_list\tList running tasks')
+    ('  task_status\tCheck task completion status')
+    ('  task_output\t completed task output')
+    ('  task_clear\t\tClear task from control center')
+    ('  plugin_install\t\tInstall new plugin')
+    ('  plugin_list\t\tList installed plugins')
+    ('  plugin_clear\t\tClear installed plugin')
+    ('  plugin_help\t\tGet help for installed plugin')
 
-# Help
-- Provide a description of usage of the botnet
-- Help usage: excalibot help COMMAND
-- General usage: excalibot COMMAND HOST PORT [PARAMETERS]
+help bot_list
+    ('List available bots')
+    ('Usage: excalibot bot_list HOST PORT key:KEY since:SINCE')
+    ('KEY: (optional)')
+    ('  id\t\tSort list by botid')
+    ('  ipAddress\tSort list by IP address')
+    ('  lastSeen\tSort list by seconds since last report')
+    ('  os\t\tSort list by Operative System')
+    ('  countryCode\tSort list by Country')
+    ('  zip\t\tSort list by zip code')
+    ('SINCE: (optional)')
+    ('  Show only bots alive in the last SINCE seconds')
 
-## COMMAND
-```
-- help    Print usage
-- list    List available bots
-- attack  Schedule new attacks
-- install Install new plugin
-- status  Check task completion status
-- clear   Clear task from control center
-```
+help task_submit
+    ('Schedule new tasks')
+    ('Usage: excalibot task_submit HOST PORT ATTACK KEY:VALUE')
+    ('ATTACK:')
+    ('  installed plugin name')
+    ('KEY:VALUE: (optional)')
+    ('  list of parameters to the attack, in a key:value format')
 
-# List
-- List available bots
-- Usage: excalibot list HOST PORT KEY
+help task_list
+    (' list of ongoing tasks')
+    ('Usage: excalibot task_list HOST PORT')
 
-## KEY
-```
-- id          Sort list by botid
-- ipAddress   Sort list by IP address
-- lastSeen    Sort list by seconds since last report')
-- os          Sort list by Operative System
-- countryCode Sort list by Country
-- zip         Sort list by zip code
-```
+help task_status
+    ('Check task completion status')
+    ('Usage: excalibot task_status HOST PORT ID block')
+    ('ID:')
+    ('  id of the task to get status')
+    ('block: (optional)')
+    ('  block until task is completed')
 
-# Attack
-- Schedule new attacks
-- Usage: excalibot attack HOST PORT ATTACK [KEY:VALUE]
+help task_output
+    (' task output')
+    ('Usage: excalibot task_output HOST PORT ID')
+    ('ID:')
+    ('  id of the task to get output')
 
-## ATTACK
-```
-- Name of installed plugins
-```
+help task_clear
+    ('Clear task from control center')
+    ('Usage: excalibot task_clear HOST PORT ID')
+    ('ID:')
+    ('  id of the task to deleted')
 
-## KEY:VALUE
-```
-- Parameters to the attack, order does not matter, use a key:value format (ex: time:5)
-- TODO get plugins from server
-```
+help plugin_install
+    ('Install new plugin')
+    ('Usage: excalibot plugin_install HOST PORT name:NAME url:URL')
+    ('NAME:')
+    ('  name of the plugin ')
+    ('URL:')
+    ('  url to the plugin resource')
 
-# Install
-- Install new plugin
-- Usage: excalibot install HOST PORT URL
+help plugin_list
+    (' list of available plugins')
+    ('Usage: excalibot plugin_list HOST PORT')
 
-## URL
-```
-- Url to the plugin resource
-```
+help plugin_clear
+    ('Clear plugin from control center')
+    ('Usage: excalibot task_clear HOST PORT NAME')
+    ('NAME:')
+    ('  name of the plugin to deleted')
 
-# Status
-- Check task completion status
-- Usage: excalibot status HOST PORT ID (-b)
-
-## ID
-```
-- Id of the task to get status
-```
-
-## -b
-```
-- Optional, use -b to block until task is completed
-```
-
-# Clear
-- Clear task from control center
-- Usage: excalibot clear HOST PORT ID
-
-## ID
-```
-- Id of the task to deleted
-```
+help plugin_help
+    ('Get help for installed plugin')
+    ('Usage: excalibot plugin_help HOST PORT NAME')
+    ('NAME:')
+    ('  name of the plugin to get help')

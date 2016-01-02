@@ -41,7 +41,6 @@ class Help:
         print('  installed plugin name')
         print('KEY:VALUE: (optional)')
         print('  list of parameters to the attack, in a key:value format')
-        # TODO plugin_help
 
     @staticmethod
     def task_list():
