@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from classes.options import Options
+from classes.options_test import Options
 import sys
 
 ops = ['help', 'list', 'attack', 'install', 'status', 'clear', 'output']

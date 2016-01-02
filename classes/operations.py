@@ -97,7 +97,7 @@ class Operations:
 
     @staticmethod
     def clear(host, port, task_id):
-        r = requests.get('http://' + host + ':' + port + '/control/clear/' + task_id)
+        r = requests.delete('http://' + host + ':' + port + '/control/delete/' + task_id)
         if r.status_code != 200:
             print('ERROR: ' + r.text)
             return -1
@@ -110,3 +110,5 @@ class Operations:
             print('ERROR: ' + r.text)
             return '-1'
         return json.loads(r.text)
+
+# TODO /task/list
