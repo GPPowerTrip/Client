@@ -1,3 +1,4 @@
+```
 help help
     ('Usage: excalibot help COMMAND')
     ('General application usage: excalibot COMMAND HOST PORT PARAMETERS')
@@ -82,3 +83,4 @@ help plugin_help
     ('Usage: excalibot plugin_help HOST PORT NAME')
     ('NAME:')
     ('  name of the plugin to get help')
+```
