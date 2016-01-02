@@ -74,3 +74,7 @@ class Operations:
     @staticmethod
     def plugin_list(host, port):
         return Rest.get(host, port, 'control/plugin/list')
+
+    @staticmethod
+    def plugin_help(host, port, plugin_id):
+        return Rest.get(host, port, 'control/plugin/help', plugin_id)

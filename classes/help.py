@@ -17,6 +17,7 @@ class Help:
         print('  plugin_install\t\tInstall new plugin')
         print('  plugin_list\t\tList installed plugins')
         print('  plugin_clear\t\tClear installed plugin')
+        print('  plugin_help\t\tGet help for installed plugin')
 
     @staticmethod
     def bot_list():
@@ -40,7 +41,7 @@ class Help:
         print('  installed plugin name')
         print('KEY:VALUE: (optional)')
         print('  list of parameters to the attack, in a key:value format')
-        # TODO get plugins from server
+        # TODO plugin_help
 
     @staticmethod
     def task_list():
@@ -89,4 +90,11 @@ class Help:
         print('Clear plugin from control center')
         print('Usage: excalibot task_clear HOST PORT NAME')
         print('NAME:')
-        print('  name of the task to deleted')
+        print('  name of the plugin to deleted')
+
+    @staticmethod
+    def plugin_help():
+        print('Get help for installed plugin')
+        print('Usage: excalibot plugin_help HOST PORT NAME')
+        print('NAME:')
+        print('  name of the plugin to get help')

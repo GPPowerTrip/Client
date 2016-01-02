@@ -7,7 +7,8 @@ class Options:
     @staticmethod
     def help(args):
         # Describe usage of the cli
-        ops = ['help', 'bot_list', 'task_submit', 'plugin_install', 'task_status', 'task_clear', 'task_output', 'task_list', 'plugin_list', 'plugin_clear']
+        ops = ['help', 'bot_list', 'task_submit', 'plugin_install', 'task_status', 'task_clear', 'task_output',
+               'task_list', 'plugin_list', 'plugin_clear', 'plugin_help']
         if len(args) == 0 or args[0] not in ops: param = 'help'
         else: param = args[0]
         getattr(Help, param)()
@@ -92,4 +93,12 @@ class Options:
         try:
             if len(args) < 2: print('Invalid parameters'); return
             print(Operations.plugin_list(args[0], args[1]))
+        except: print("Error connecting")
+
+    @staticmethod
+    def plugin_help(args):
+        # Help for installed plugin {plugin_help $host $port $id}
+        try:
+            if len(args) < 3: print('Invalid parameters'); return
+            print(Operations.plugin_help(args[0], args[1], args[2]))
         except: print("Error connecting")
