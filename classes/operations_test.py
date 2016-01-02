@@ -48,8 +48,8 @@ class Operations:
         return param
 
     @staticmethod
-    def install(host, port, url):
-        return Rest.post(host, port, 'control/plugin', url)
+    def install(host, port, data):
+        return Rest.post(host, port, 'control/plugin/install', data)
 
     @staticmethod
     def status(host, port, task_id):
@@ -69,4 +69,8 @@ class Operations:
 
     @staticmethod
     def task_list(host, port):
-        return Rest.get(host, port, 'task/list')
+        return Rest.get(host, port, 'control/task/list')
+
+    @staticmethod
+    def plugin_list(host, port):
+        return Rest.get(host, port, 'control/plugin/list')
