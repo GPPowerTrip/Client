@@ -69,4 +69,4 @@ class Operations:
 
     @staticmethod
     def task_list(host, port):
-        return Rest.get(host, port, '/task/list')
+        return Rest.get(host, port, 'task/list')

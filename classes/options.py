@@ -62,6 +62,9 @@ class Options:
             print('Usage: excalibot output HOST PORT ID')
             print('ID:')
             print('  Id of the task to get output')
+        elif args[0] == 'tasks':
+            print('Print task list')
+            print('Usage: excalibot output HOST PORT')
 
     @staticmethod
     def list(args):
@@ -162,6 +165,22 @@ class Options:
             response = Operations.output(args[0], args[1], args[2])
             if response == -1:
                 print('Invalid output parameters')
+                return
+            else:
+                print(response)
+        except:
+            print("Error connecting")
+
+    @staticmethod
+    def tasks(args):
+        # Get task list from control center {tasks $host $port}
+        if len(args) < 2:
+            print('Invalid parameters')
+            return
+        try:
+            response = Operations.task_list(args[0], args[1])
+            if response == -1:
+                print('Invalid tasks parameters')
                 return
             else:
                 print(response)

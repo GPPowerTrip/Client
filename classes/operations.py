@@ -108,7 +108,13 @@ class Operations:
         r = requests.get('http://' + host + ':' + port + '/control/output/' + task_id)
         if r.status_code != 200:
             print('ERROR: ' + r.text)
-            return '-1'
+            return -1
         return json.loads(r.text)
 
-# TODO /task/list
+    @staticmethod
+    def task_list(host, port):
+        r = requests.get('http://' + host + ':' + port + '/task/list')
+        if r.status_code != 200:
+            print('ERROR: ' + r.text)
+            return -1
+        return json.loads(r.text)

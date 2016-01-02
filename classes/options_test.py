@@ -108,6 +108,7 @@ class Options:
         try:
             if len(args) < 3: print('Invalid parameters'); return
             block = True
+            response = ''
             while block:
                 response = Operations.status(args[0], args[1], args[2])
                 block = (len(args) > 3 and args[3] == 'block' and Operations.block(response))
