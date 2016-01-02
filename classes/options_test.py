@@ -81,7 +81,7 @@ class Options:
             else:
                 bot_list = Operations.sort(bot_list, param['key'])
             print(Operations.print_list(bot_list))
-        except: print("Error connecting2")
+        except: print("Error connecting")
 
     @staticmethod
     def attack(args):

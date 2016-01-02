@@ -7,7 +7,6 @@ import json
 class Rest:
     @staticmethod
     def get(host, port, endpoint, param=''):
-        print("here")
         r = requests.get('http://' + host + ':' + port + '/' + endpoint + '/' + param, timeout=3)
         if r.status_code != 200: print('ERROR: ' + r.text); raise ValueError('Problem connecting')
         return json.loads(r.text)

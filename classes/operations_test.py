@@ -33,7 +33,7 @@ class Operations:
 
     @staticmethod
     def attack(host, port, attack, param):
-        return Rest.post(host, port, 'control/run', param,
+        return Rest.post(host, port, 'control/run',
                          json={'command': attack, 'parameters': param},
                          headers={'content-type': 'application/json'})
 
