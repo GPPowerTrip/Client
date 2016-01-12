@@ -13,7 +13,7 @@ def request(context):
         if r.status_code != 200: print('ERROR STATUS CODE: ' + r.text); raise ValueError('Problem connecting')
         return r.text
     except:
-        print('Connection error');
+        print('Connection error')
         sys.exit(0)
 
 

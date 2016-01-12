@@ -28,6 +28,7 @@ def task_ls(context):
 
 # $host $port task_check $id
 def task_check(context):
+    if len(context['args']) == 0: return "Invalid parameters"
     while True:
         result = json.loads(operations.parameter(context))
         if not (len(context['args']) > 1 and context['args'][1] == 'block' and result['complete'] != True): break
@@ -37,11 +38,13 @@ def task_check(context):
 
 # $host $port task_output $id
 def task_output(context):
+    if len(context['args']) == 0: return "Invalid parameters"
     return json.dumps(json.loads(operations.parameter(context)), indent=2)
 
 
 # $host $port task_clear $id
 def task_rm(context):
+    if len(context['args']) == 0: return "Invalid parameters"
     return json.dumps(json.loads(operations.parameter(context)), indent=2)
 
 
@@ -59,9 +62,11 @@ def plugin_ls(context):
 
 # $host $port plugin_clear $id
 def plugin_rm(context):
+    if len(context['args']) == 0: return "Invalid parameters"
     return json.dumps(json.loads(operations.parameter(context)), indent=2)
 
 
 # $host $port plugin_help $id
 def plugin_help(context):
+    if len(context['args']) == 0: return "Invalid parameters"
     return json.dumps(json.loads(operations.parameter(context)), indent=2)
