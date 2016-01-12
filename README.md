@@ -1,86 +1,87 @@
 ```
-help help
+help:
     ('Usage: excalibot help COMMAND')
-    ('General application usage: excalibot COMMAND HOST PORT PARAMETERS')
+    ('General application usage: excalibot HOST PORT COMMAND PARAMETERS')
     ('COMMAND:')
-    ('  help\t\t this information')
-    ('  bot_list\t\tList available bots')
-    ('  task_submit\tSchedule new attacks')
-    ('  task_list\tList running tasks')
-    ('  task_status\tCheck task completion status')
-    ('  task_output\t completed task output')
-    ('  task_clear\t\tClear task from control center')
-    ('  plugin_install\t\tInstall new plugin')
-    ('  plugin_list\t\tList installed plugins')
-    ('  plugin_clear\t\tClear installed plugin')
-    ('  plugin_help\t\tGet help for installed plugin')
+    ('  help            #  this information')
+    ('  knight_ls       # List available bots')
+    ('  task_run        # Schedule new attacks')
+    ('  task_ls         # List running tasks')
+    ('  task_check      # Check task completion status')
+    ('  task_output     #  completed task output')
+    ('  task_rm         # Clear task from control center')
+    ('  plugin_install  # Install new plugin')
+    ('  plugin_ls       # List installed plugins')
+    ('  plugin_rm       # Clear installed plugin')
+    ('  plugin_help     # Get help for installed plugin')
 
-help bot_list
+
+knight_ls:
     ('List available bots')
-    ('Usage: excalibot bot_list HOST PORT key:KEY since:SINCE')
-    ('KEY: (optional)')
-    ('  id\t\tSort list by botid')
-    ('  ipAddress\tSort list by IP address')
-    ('  lastSeen\tSort list by seconds since last report')
-    ('  os\t\tSort list by Operative System')
-    ('  countryCode\tSort list by Country')
-    ('  zip\t\tSort list by zip code')
+    ('Usage: excalibot HOST PORT knight_ls SINCE')
     ('SINCE: (optional)')
     ('  Show only bots alive in the last SINCE seconds')
 
-help task_submit
+
+task_run:
     ('Schedule new tasks')
-    ('Usage: excalibot task_submit HOST PORT ATTACK KEY:VALUE')
+    ('Usage: excalibot HOST PORT task_run ATTACK KEY:VALUE')
     ('ATTACK:')
     ('  installed plugin name')
     ('KEY:VALUE: (optional)')
     ('  list of parameters to the attack, in a key:value format')
 
-help task_list
-    (' list of ongoing tasks')
-    ('Usage: excalibot task_list HOST PORT')
 
-help task_status
+task_ls:
+    (' list of ongoing tasks')
+    ('Usage: excalibot HOST PORT task_ls')
+
+
+task_check:
     ('Check task completion status')
-    ('Usage: excalibot task_status HOST PORT ID block')
+    ('Usage: excalibot HOST PORT task_check ID block')
     ('ID:')
     ('  id of the task to get status')
     ('block: (optional)')
     ('  block until task is completed')
 
-help task_output
+
+task_output:
     (' task output')
-    ('Usage: excalibot task_output HOST PORT ID')
+    ('Usage: excalibot HOST PORT task_output ID')
     ('ID:')
     ('  id of the task to get output')
 
-help task_clear
+
+task_rm:
     ('Clear task from control center')
-    ('Usage: excalibot task_clear HOST PORT ID')
+    ('Usage: excalibot HOST PORT task_rm ID')
     ('ID:')
     ('  id of the task to deleted')
 
-help plugin_install
+
+plugin_install:
     ('Install new plugin')
-    ('Usage: excalibot plugin_install HOST PORT name:NAME url:URL')
-    ('NAME:')
-    ('  name of the plugin ')
+    ('Usage: excalibot HOST PORT plugin_install URL')
     ('URL:')
     ('  url to the plugin resource')
 
-help plugin_list
-    (' list of available plugins')
-    ('Usage: excalibot plugin_list HOST PORT')
 
-help plugin_clear
+plugin_ls:
+    (' list of available plugins')
+    ('Usage: excalibot HOST PORT plugin_ls')
+
+
+plugin_rm:
     ('Clear plugin from control center')
-    ('Usage: excalibot task_clear HOST PORT NAME')
+    ('Usage: excalibot HOST PORT task_rm NAME')
     ('NAME:')
     ('  name of the plugin to deleted')
 
-help plugin_help
+
+plugin_help:
     ('Get help for installed plugin')
-    ('Usage: excalibot plugin_help HOST PORT NAME')
+    ('Usage: excalibot HOST PORT plugin_help NAME')
     ('NAME:')
     ('  name of the plugin to get help')
 ```
