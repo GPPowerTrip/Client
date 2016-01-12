@@ -1,1 +1,0 @@
-zip -r ../excalibot.zip * && cd .. && echo '#!/usr/bin/env python3' | cat - excalibot.zip > excalibot && chmod +x excalibot && rm excalibot.zip
