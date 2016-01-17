@@ -18,9 +18,11 @@ ops = {
 }
 
 try:
-    if len(sys.argv) < 4:
+    if len(sys.argv) < 4 or sys.argv[3] == 'help':
         if len(sys.argv) > 2 and sys.argv[2] in ops.keys():
             getattr(help, sys.argv[2])
+        elif sys.argv[3] == 'help' and sys.argv[4] in ops.keys():
+            getattr(help, sys.argv[4])
         else:
             help.help()
     else:
